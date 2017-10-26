@@ -17,7 +17,7 @@ public interface ApiService {
      * 即将上映
      * @return
      */
-    @GET("coming_soon")
+    @GET("in_theaters")
     Observable<Main> getLiveFilm(@Query("start") int start, @Query("count") int count);
 
     /**

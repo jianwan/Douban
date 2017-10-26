@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,7 @@ public class MainFragment extends Fragment {
     CardView cardView;
 
 
+    @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,
                               Bundle savedInstanceState) {
 
@@ -83,7 +85,7 @@ public class MainFragment extends Fragment {
 
         ApiService doubanApi= retrofit.create(ApiService.class);
 
-        doubanApi.getLiveFilm(0,10)
+        doubanApi.getLiveFilm(1,20)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Main>() {
@@ -92,12 +94,12 @@ public class MainFragment extends Fragment {
                         Toast.makeText(getActivity(),"这里是即将上映的电影",Toast.LENGTH_SHORT).show();
                         adapter=new MainFragmentAdapter(fList);
                         recyclerView.setAdapter(adapter);
-
+                        Log.d("onCompleted","");
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.d("onError",e.toString());
                     }
 
                     @Override
@@ -105,6 +107,7 @@ public class MainFragment extends Fragment {
 
                           fList.addAll(main.getSubjects());
 
+                        Log.d("onNext",main.getSubjects().toString());
                     }
                 });
 //       Call<Main> call=doubanApi.getLiveFilm(10);

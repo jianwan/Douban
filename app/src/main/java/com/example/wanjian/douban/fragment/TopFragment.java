@@ -74,7 +74,7 @@ public class TopFragment extends Fragment {
 
         ApiService doubanApi= retrofit.create(ApiService.class);
 
-        doubanApi.getTop250(0,10)
+        doubanApi.getTop250(0,20)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Top250>() {
